@@ -2,127 +2,132 @@
 
 @section('title', 'Pixel Smashers – Pixel Art Marketplace')
 
-@section('styles')
-<style>
-    body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px); background-size: 32px 32px; pointer-events: none; z-index: 0; }
-    .hero { position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:100px 20px 60px; z-index:1; }
-    .hero-glow { position:absolute; width:600px; height:600px; background:radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; }
-    .hero-badge { display:inline-block; padding:6px 16px; background:rgba(124,58,237,0.15); border:1px solid rgba(124,58,237,0.4); border-radius:100px; font-size:12px; font-weight:600; color:var(--purple-light); letter-spacing:2px; text-transform:uppercase; margin-bottom:24px; }
-    .hero h1 { font-family:'Press Start 2P',monospace; font-size:clamp(24px,4vw,48px); line-height:1.6; color:white; margin-bottom:8px; }
-    .hero h1 span { color:var(--gold); }
-    .hero-sub { font-size:18px; color:var(--muted); max-width:520px; margin:16px auto 40px; line-height:1.7; }
-    .hero-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
-    .btn-large { padding:14px 32px; font-size:15px; font-weight:700; letter-spacing:2px; border-radius:4px; text-decoration:none; cursor:pointer; transition:all 0.2s; display:inline-block; }
-    .btn-large.primary { background:var(--purple); color:white; border:none; }
-    .btn-large.primary:hover { background:#6d28d9; transform:translateY(-2px); }
-    .btn-large.ghost { background:transparent; color:var(--text); border:1px solid var(--border); }
-    .btn-large.ghost:hover { border-color:var(--purple); color:var(--purple-light); }
-    .hero-stats { display:flex; gap:48px; justify-content:center; margin-top:64px; }
-    .stat { text-align:center; }
-    .stat-number { font-family:'Press Start 2P',monospace; font-size:20px; color:var(--gold); display:block; margin-bottom:6px; }
-    .stat-label { font-size:13px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; }
-    section { position:relative; z-index:1; padding:80px 40px; max-width:1200px; margin:0 auto; }
-    .section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; }
-    .section-title { font-family:'Press Start 2P',monospace; font-size:16px; color:white; }
-    .section-title span { color:var(--purple-light); }
-    .view-all { color:var(--purple-light); text-decoration:none; font-weight:600; font-size:14px; }
-    .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px; }
-    .product-card { background:var(--card); border:1px solid var(--border); border-radius:8px; overflow:hidden; transition:border-color 0.2s,transform 0.2s; text-decoration:none; color:inherit; display:block; }
-    .product-card:hover { border-color:var(--purple); transform:translateY(-4px); }
-    .card-preview { width:100%; height:180px; display:flex; align-items:center; justify-content:center; font-size:64px; position:relative; overflow:hidden; }
-    .card-badge { position:absolute; top:10px; right:10px; padding:4px 10px; border-radius:4px; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
-    .badge-free { background:rgba(16,185,129,0.2); color:var(--green); border:1px solid rgba(16,185,129,0.3); }
-    .badge-paid { background:rgba(245,158,11,0.2); color:var(--gold); border:1px solid rgba(245,158,11,0.3); }
-    .badge-hot { background:rgba(239,68,68,0.2); color:#f87171; border:1px solid rgba(239,68,68,0.3); }
-    .card-body { padding:16px; }
-    .card-category { font-size:11px; font-weight:600; color:var(--purple-light); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
-    .card-title { font-size:16px; font-weight:700; color:white; margin-bottom:8px; }
-    .card-footer { display:flex; align-items:center; justify-content:space-between; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); }
-    .card-price { font-family:'Press Start 2P',monospace; font-size:13px; color:var(--gold); }
-    .card-price.free { color:var(--green); }
-    .stars { color:var(--gold); font-size:12px; }
-    .categories-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:16px; }
-    .category-card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:24px 16px; text-align:center; transition:border-color 0.2s,background 0.2s; text-decoration:none; color:inherit; display:block; }
-    .category-card:hover { border-color:var(--purple); background:rgba(124,58,237,0.08); }
-    .category-icon { font-size:36px; margin-bottom:10px; display:block; }
-    .category-name { font-weight:700; font-size:14px; color:white; }
-    .category-count { font-size:12px; color:var(--muted); margin-top:4px; }
-    .cta-banner { background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(109,40,217,0.1)); border:1px solid rgba(124,58,237,0.3); border-radius:12px; padding:60px 40px; text-align:center; margin:0 40px 80px; position:relative; z-index:1; overflow:hidden; }
-    .cta-banner h2 { font-family:'Press Start 2P',monospace; font-size:clamp(14px,2.5vw,22px); color:white; margin-bottom:16px; }
-    .cta-banner p { color:var(--muted); font-size:16px; margin-bottom:32px; }
-</style>
-@endsection
-
 @section('content')
 
-<div class="hero">
-    <div class="hero-glow"></div>
+<div class="relative min-h-[90vh] flex items-center justify-center text-center px-5 pt-24 pb-16 z-10">
+    <div class="absolute w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(var(--accent),0.15)_0%,transparent_70%)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
     <div>
-        <div class="hero-badge">🎮 #1 Pixel Art Marketplace</div>
-        <h1>BUY & SELL<br><span>PIXEL ART</span><br>ASSETS</h1>
-        <p class="hero-sub">Discover thousands of tilesets, sprites, animations, and UI packs made by talented pixel artists worldwide.</p>
-        <div class="hero-actions">
-            <a href="/marketplace" class="btn-large primary">Browse Assets</a>
+        <div class="inline-block px-4 py-1.5 bg-[var(--accent)]/15 border border-[var(--accent)]/40 rounded-full text-xs font-semibold text-[var(--accent-light)] tracking-widest uppercase mb-6">🎮 #1 Pixel Art Marketplace</div>
+        <h1 class="font-pixel text-clamp-hero leading-relaxed text-[var(--text)] mb-2">BUY & SELL<br><span class="text-[var(--gold)]">PIXEL ART</span><br>ASSETS</h1>
+        <p class="text-lg text-[var(--muted)] max-w-lg mx-auto mt-4 mb-10 leading-relaxed">Discover thousands of tilesets, sprites, animations, and UI packs made by talented pixel artists worldwide.</p>
+        <div class="flex gap-4 justify-center flex-wrap">
+            <a href="/marketplace" class="btn-pixel !px-8 !py-4 !text-sm">Browse Assets</a>
             @guest
-                <a href="/register" class="btn-large ghost">Start Selling</a>
+                <a href="/register" class="btn-pixel btn-pixel-ghost !px-8 !py-4 !text-sm">Start Selling</a>
             @endguest
             @auth
                 @if(Auth::user()->role == 'seller')
-                    <a href="/seller/upload" class="btn-large ghost">+ Upload Asset</a>
+                    <a href="/seller/upload" class="btn-pixel btn-pixel-ghost !px-8 !py-4 !text-sm">+ Upload Asset</a>
                 @endif
             @endauth
         </div>
-        <div class="hero-stats">
-            <div class="stat"><span class="stat-number">2.4K+</span><span class="stat-label">Assets</span></div>
-            <div class="stat"><span class="stat-number">840+</span><span class="stat-label">Artists</span></div>
-            <div class="stat"><span class="stat-number">12K+</span><span class="stat-label">Buyers</span></div>
+        <div class="flex gap-12 justify-center mt-16">
+            <div class="text-center"><span class="font-pixel text-xl text-[var(--gold)] block mb-1.5">2.4K+</span><span class="text-sm text-[var(--muted)] tracking-widest uppercase">Assets</span></div>
+            <div class="text-center"><span class="font-pixel text-xl text-[var(--gold)] block mb-1.5">840+</span><span class="text-sm text-[var(--muted)] tracking-widest uppercase">Artists</span></div>
+            <div class="text-center"><span class="font-pixel text-xl text-[var(--gold)] block mb-1.5">12K+</span><span class="text-sm text-[var(--muted)] tracking-widest uppercase">Buyers</span></div>
         </div>
     </div>
 </div>
 
-<section>
-    <div class="section-header">
-        <h2 class="section-title">FEATURED <span>ASSETS</span></h2>
-        <a href="/marketplace" class="view-all">View All →</a>
+<section class="relative z-10 py-20 px-10 max-w-7xl mx-auto">
+    <div class="flex items-center justify-between mb-10">
+        <h2 class="font-pixel text-base text-[var(--text)]">FEATURED <span class="text-[var(--accent-light)]">ASSETS</span></h2>
+        <a href="/marketplace" class="text-[var(--accent-light)] no-underline font-semibold text-sm hover:underline">View All →</a>
     </div>
-    <div class="products-grid">
-        <a href="/marketplace" class="product-card">
-            <div class="card-preview" style="background:linear-gradient(135deg,#1a1a2e,#16213e);">🏰<span class="card-badge badge-hot">HOT</span></div>
-            <div class="card-body"><div class="card-category">Tileset</div><div class="card-title">Medieval Castle Pack</div><div class="card-footer"><span class="card-price">$12.00</span><span class="stars">★★★★★</span></div></div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        <!-- Product 1 -->
+        <a href="/marketplace" class="block bg-[var(--card)] pixel-border hover:border-[var(--accent)] hover:-translate-y-1 transition-transform no-underline text-inherit">
+            <div class="w-full h-44 flex items-center justify-center text-6xl relative overflow-hidden bg-gradient-to-br from-[#1a1a2e] to-[#16213e]">
+                🏰
+                <span class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded text-[11px] font-bold tracking-widest uppercase bg-red-500/20 text-red-400 border border-red-500/30">HOT</span>
+            </div>
+            <div class="p-4">
+                <div class="text-[11px] font-semibold text-[var(--accent-light)] tracking-widest uppercase mb-1.5">Tileset</div>
+                <div class="text-base font-bold text-[var(--text)] mb-2">Medieval Castle Pack</div>
+                <div class="flex items-center justify-between mt-3 pt-3 border-t border-[var(--border)]">
+                    <span class="font-pixel text-[13px] text-[var(--gold)]">$12.00</span>
+                    <span class="text-[var(--gold)] text-xs">★★★★★</span>
+                </div>
+            </div>
         </a>
-        <a href="/marketplace" class="product-card">
-            <div class="card-preview" style="background:linear-gradient(135deg,#0f2027,#203a43);">🧙<span class="card-badge badge-paid">PAID</span></div>
-            <div class="card-body"><div class="card-category">Character Sprite</div><div class="card-title">Wizard Animation Set</div><div class="card-footer"><span class="card-price">$8.00</span><span class="stars">★★★★☆</span></div></div>
+        <!-- Product 2 -->
+        <a href="/marketplace" class="block bg-[var(--card)] pixel-border hover:border-[var(--accent)] hover:-translate-y-1 transition-transform no-underline text-inherit">
+            <div class="w-full h-44 flex items-center justify-center text-6xl relative overflow-hidden bg-gradient-to-br from-[#0f2027] to-[#203a43]">
+                🧙
+                <span class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded text-[11px] font-bold tracking-widest uppercase bg-amber-500/20 text-amber-500 border border-amber-500/30">PAID</span>
+            </div>
+            <div class="p-4">
+                <div class="text-[11px] font-semibold text-[var(--accent-light)] tracking-widest uppercase mb-1.5">Character Sprite</div>
+                <div class="text-base font-bold text-[var(--text)] mb-2">Wizard Animation Set</div>
+                <div class="flex items-center justify-between mt-3 pt-3 border-t border-[var(--border)]">
+                    <span class="font-pixel text-[13px] text-[var(--gold)]">$8.00</span>
+                    <span class="text-[var(--gold)] text-xs">★★★★☆</span>
+                </div>
+            </div>
         </a>
-        <a href="/marketplace" class="product-card">
-            <div class="card-preview" style="background:linear-gradient(135deg,#134e5e,#71b280);">🌿<span class="card-badge badge-free">FREE</span></div>
-            <div class="card-body"><div class="card-category">Background</div><div class="card-title">Forest Environment</div><div class="card-footer"><span class="card-price free">FREE</span><span class="stars">★★★★★</span></div></div>
+        <!-- Product 3 -->
+        <a href="/marketplace" class="block bg-[var(--card)] pixel-border hover:border-[var(--accent)] hover:-translate-y-1 transition-transform no-underline text-inherit">
+            <div class="w-full h-44 flex items-center justify-center text-6xl relative overflow-hidden bg-gradient-to-br from-[#134e5e] to-[#71b280]">
+                🌿
+                <span class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded text-[11px] font-bold tracking-widest uppercase bg-emerald-500/20 text-[var(--green)] border border-emerald-500/30">FREE</span>
+            </div>
+            <div class="p-4">
+                <div class="text-[11px] font-semibold text-[var(--accent-light)] tracking-widest uppercase mb-1.5">Background</div>
+                <div class="text-base font-bold text-[var(--text)] mb-2">Forest Environment</div>
+                <div class="flex items-center justify-between mt-3 pt-3 border-t border-[var(--border)]">
+                    <span class="font-pixel text-[13px] text-[var(--green)]">FREE</span>
+                    <span class="text-[var(--gold)] text-xs">★★★★★</span>
+                </div>
+            </div>
         </a>
-        <a href="/marketplace" class="product-card">
-            <div class="card-preview" style="background:linear-gradient(135deg,#1a0533,#3d0066);">⚔️<span class="card-badge badge-paid">PAID</span></div>
-            <div class="card-body"><div class="card-category">UI Pack</div><div class="card-title">RPG Interface Kit</div><div class="card-footer"><span class="card-price">$15.00</span><span class="stars">★★★★☆</span></div></div>
+        <!-- Product 4 -->
+        <a href="/marketplace" class="block bg-[var(--card)] pixel-border hover:border-[var(--accent)] hover:-translate-y-1 transition-transform no-underline text-inherit">
+            <div class="w-full h-44 flex items-center justify-center text-6xl relative overflow-hidden bg-gradient-to-br from-[#1a0533] to-[#3d0066]">
+                ⚔️
+                <span class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded text-[11px] font-bold tracking-widest uppercase bg-amber-500/20 text-amber-500 border border-amber-500/30">PAID</span>
+            </div>
+            <div class="p-4">
+                <div class="text-[11px] font-semibold text-[var(--accent-light)] tracking-widest uppercase mb-1.5">UI Pack</div>
+                <div class="text-base font-bold text-[var(--text)] mb-2">RPG Interface Kit</div>
+                <div class="flex items-center justify-between mt-3 pt-3 border-t border-[var(--border)]">
+                    <span class="font-pixel text-[13px] text-[var(--gold)]">$15.00</span>
+                    <span class="text-[var(--gold)] text-xs">★★★★☆</span>
+                </div>
+            </div>
         </a>
     </div>
 </section>
 
-<section>
-    <div class="section-header">
-        <h2 class="section-title">BROWSE <span>CATEGORIES</span></h2>
+<section class="relative z-10 py-20 px-10 max-w-7xl mx-auto">
+    <div class="flex items-center justify-between mb-10">
+        <h2 class="font-pixel text-base text-[var(--text)]">BROWSE <span class="text-[var(--accent-light)]">CATEGORIES</span></h2>
     </div>
-    <div class="categories-grid">
-        <a href="/marketplace?category=tileset" class="category-card"><span class="category-icon">🗺️</span><div class="category-name">Tilesets</div><div class="category-count">342 assets</div></a>
-        <a href="/marketplace?category=character" class="category-card"><span class="category-icon">🧍</span><div class="category-name">Characters</div><div class="category-count">218 assets</div></a>
-        <a href="/marketplace?category=effect" class="category-card"><span class="category-icon">✨</span><div class="category-name">Effects</div><div class="category-count">156 assets</div></a>
-        <a href="/marketplace?category=background" class="category-card"><span class="category-icon">🖼️</span><div class="category-name">Backgrounds</div><div class="category-count">198 assets</div></a>
-        <a href="/marketplace?category=ui" class="category-card"><span class="category-icon">🎮</span><div class="category-name">UI Packs</div><div class="category-count">124 assets</div></a>
-        <a href="/marketplace?category=icon" class="category-card"><span class="category-icon">🎵</span><div class="category-name">Icons</div><div class="category-count">87 assets</div></a>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <a href="/marketplace?category=tileset" class="block bg-[var(--card)] pixel-border p-6 text-center hover:border-[var(--accent)] hover:bg-[var(--accent)]/5 transition-colors no-underline text-inherit">
+            <span class="block text-4xl mb-2.5">🗺️</span><div class="font-bold text-sm text-[var(--text)]">Tilesets</div><div class="text-xs text-[var(--muted)] mt-1">342 assets</div>
+        </a>
+        <a href="/marketplace?category=character" class="block bg-[var(--card)] pixel-border p-6 text-center hover:border-[var(--accent)] hover:bg-[var(--accent)]/5 transition-colors no-underline text-inherit">
+            <span class="block text-4xl mb-2.5">🧍</span><div class="font-bold text-sm text-[var(--text)]">Characters</div><div class="text-xs text-[var(--muted)] mt-1">218 assets</div>
+        </a>
+        <a href="/marketplace?category=effect" class="block bg-[var(--card)] pixel-border p-6 text-center hover:border-[var(--accent)] hover:bg-[var(--accent)]/5 transition-colors no-underline text-inherit">
+            <span class="block text-4xl mb-2.5">✨</span><div class="font-bold text-sm text-[var(--text)]">Effects</div><div class="text-xs text-[var(--muted)] mt-1">156 assets</div>
+        </a>
+        <a href="/marketplace?category=background" class="block bg-[var(--card)] pixel-border p-6 text-center hover:border-[var(--accent)] hover:bg-[var(--accent)]/5 transition-colors no-underline text-inherit">
+            <span class="block text-4xl mb-2.5">🖼️</span><div class="font-bold text-sm text-[var(--text)]">Backgrounds</div><div class="text-xs text-[var(--muted)] mt-1">198 assets</div>
+        </a>
+        <a href="/marketplace?category=ui" class="block bg-[var(--card)] pixel-border p-6 text-center hover:border-[var(--accent)] hover:bg-[var(--accent)]/5 transition-colors no-underline text-inherit">
+            <span class="block text-4xl mb-2.5">🎮</span><div class="font-bold text-sm text-[var(--text)]">UI Packs</div><div class="text-xs text-[var(--muted)] mt-1">124 assets</div>
+        </a>
+        <a href="/marketplace?category=icon" class="block bg-[var(--card)] pixel-border p-6 text-center hover:border-[var(--accent)] hover:bg-[var(--accent)]/5 transition-colors no-underline text-inherit">
+            <span class="block text-4xl mb-2.5">🎵</span><div class="font-bold text-sm text-[var(--text)]">Icons</div><div class="text-xs text-[var(--muted)] mt-1">87 assets</div>
+        </a>
     </div>
 </section>
 
-<div class="cta-banner">
-    <h2>ARE YOU A PIXEL ARTIST?</h2>
-    <p>Join hundreds of artists already selling their work on Pixel Smashers. Start earning today!</p>
-    <a href="/register" class="btn-large primary">Start Selling Free</a>
+<div class="bg-gradient-to-br from-[var(--accent)]/20 to-purple-800/10 border border-[var(--accent)]/30 rounded-xl p-16 text-center mx-10 mb-20 relative z-10 overflow-hidden pixel-border">
+    <h2 class="font-pixel text-xl sm:text-2xl text-[var(--text)] mb-4">ARE YOU A PIXEL ARTIST?</h2>
+    <p class="text-[var(--muted)] text-base mb-8">Join hundreds of artists already selling their work on Pixel Smashers. Start earning today!</p>
+    <a href="/register" class="btn-pixel !px-8 !py-4 !text-sm">Start Selling Free</a>
 </div>
 
 @endsection
