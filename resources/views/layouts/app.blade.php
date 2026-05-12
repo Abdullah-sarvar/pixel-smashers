@@ -34,35 +34,31 @@
         <li><a href="/marketplace?category=character" class="text-[var(--muted)] no-underline font-bold text-sm uppercase tracking-widest hover:text-[var(--accent-light)] transition-colors">Characters</a></li>
     </ul>
 
-    <div class="flex gap-2.5 items-center">
-        <button onclick="toggleTheme()" class="btn-pixel btn-pixel-ghost !px-3 !py-1 mr-4" title="Toggle Light/Dark Mode">🌓</button>
-        @auth
-            <span class="text-[var(--accent-light)] font-semibold text-sm">👋 {{ Auth::user()->name }}</span>
-            <a href="/cart" class="btn-pixel btn-pixel-ghost">🛒 Cart</a>
-            <a href="/orders" class="btn-pixel btn-pixel-ghost">📦 Orders</a>
+   <div class="flex gap-2.5 items-center">
+    <button onclick="toggleTheme()" class="btn-pixel btn-pixel-ghost !px-3 !py-1 mr-4" title="Toggle Light/Dark Mode">🌓</button>
+    @auth
+        <span class="text-[var(--accent-light)] font-semibold text-sm">👋 {{ Auth::user()->name }}</span>
+        <a href="/cart" class="btn-pixel btn-pixel-ghost">🛒 Cart</a>
+        <a href="/orders" class="btn-pixel btn-pixel-ghost">📦 Orders</a>
 
-            @if(Auth::user()->role == 'seller')
-                <a href="/seller/dashboard" class="btn-pixel btn-pixel-ghost">My Dashboard</a>
-                <a href="/seller/upload" class="btn-pixel">+ Upload</a>
-            @endif
+        @if(Auth::user()->role == 'seller')
+            <a href="/seller/dashboard" class="btn-pixel btn-pixel-ghost">My Dashboard</a>
+            <a href="/seller/upload" class="btn-pixel">+ Upload</a>
+        @endif
 
-            @if(Auth::user()->role == 'buyer')
-                <a href="/marketplace" class="btn-pixel btn-pixel-ghost">Browse</a>
-            @endif
+        @if(Auth::user()->role == 'admin')
+            <a href="/admin/dashboard" class="btn-pixel">Admin Panel</a>
+        @endif
 
-            @if(Auth::user()->role == 'admin')
-                <a href="/admin/dashboard" class="btn-pixel">Admin Panel</a>
-            @endif
-
-            <form method="POST" action="/logout" style="display:inline;">
-                @csrf
-                <button type="submit" class="btn-pixel btn-pixel-ghost">Logout</button>
-            </form>
-        @else
-            <a href="/login" class="btn-pixel btn-pixel-ghost">Login</a>
-            <a href="/register" class="btn-pixel">Sign Up</a>
-        @endauth
-    </div>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="btn-pixel btn-pixel-ghost">Logout</button>
+        </form>
+    @else
+        <a href="{{ route('login') }}" class="btn-pixel btn-pixel-ghost">Login</a>
+        <a href="{{ route('register') }}" class="btn-pixel">Sign Up</a>
+    @endauth
+</div>
 </nav>
 
 
