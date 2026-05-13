@@ -77,5 +77,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard',       [AdminController::class, 'index'])->name('admin.dashboard');
     Route::delete('/admin/user/{id}',    [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
     Route::delete('/admin/product/{id}', [AdminController::class, 'deleteProduct'])->name('admin.deleteProduct');
+    Route::delete('/admin/order/{id}',       [AdminController::class, 'deleteOrder'])->name('admin.deleteOrder');
+    Route::delete('/admin/review/{id}',      [AdminController::class, 'deleteReview'])->name('admin.deleteReview');
+    Route::post('/admin/user/{id}/role',     [AdminController::class, 'toggleUserRole'])->name('admin.toggleRole');
+
 
 });
