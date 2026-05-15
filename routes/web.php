@@ -11,18 +11,14 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 
-// ============================================================
-// Public Routes
-// ============================================================
+
 
 Route::get('/', function () { return view('welcome'); });
 
 Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 
-// ============================================================
-// Guest-only Routes (redirects to / if already logged in)
-// ============================================================
+
 
 Route::middleware('guest')->group(function () {
 
@@ -44,9 +40,7 @@ Route::middleware('guest')->group(function () {
 
 });
 
-// ============================================================
-// Authenticated Routes
-// ============================================================
+
 
 Route::middleware('auth')->group(function () {
 
